@@ -13,10 +13,10 @@ urlpatterns = [
     
     # path for login
     path(route='login', view=views.login_user, name='login'),
-    #path('login/', TemplateView.as_view(template_name="index.html")),
     path('logout', views.logout_user, name='logout'),
     # path for dealer reviews view
 
     # path for add a review view
+    path(route='get_cars', view=views.get_cars, name ='getcars'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
