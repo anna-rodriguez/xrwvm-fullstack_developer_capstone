@@ -13,7 +13,7 @@ from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
 import json
-
+from .restapis import get_request, analyze_review_sentiments, post_review
 
 # from .populate import initiate
 
