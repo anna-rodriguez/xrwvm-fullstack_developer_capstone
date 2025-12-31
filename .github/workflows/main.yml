@@ -1,3 +1,5 @@
+ermissions:
+  contents: read
 name: 'Lint Code'
 
 on:
@@ -6,6 +8,8 @@ on:
   pull_request:
     branches: [master, main]
 
+permissions:
+  contents: read
 jobs:
   lint_python:
     name: Lint Python Files
@@ -14,10 +18,10 @@ jobs:
     steps:
 
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: 3.12
 
@@ -42,10 +46,10 @@ jobs:
 
       steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 14
 
