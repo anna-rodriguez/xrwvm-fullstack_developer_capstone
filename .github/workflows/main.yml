@@ -1,4 +1,4 @@
-ermissions:
+permissions:
   contents: read
 name: 'Lint Code'
 
