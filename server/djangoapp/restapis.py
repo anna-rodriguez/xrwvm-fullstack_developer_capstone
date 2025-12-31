@@ -11,7 +11,7 @@ backend_url = os.getenv(
     'theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai')
 sentiment_analyzer_url = os.getenv(
     'sentiment_analyzer_url',
-    default='https://sentianalyzer.24kl2ns2x1ex.' + 
+    default='https://sentianalyzer.24kl2ns2x1ex.' +
     'us-south.codeengine.appdomain.cloud/')
 
 
