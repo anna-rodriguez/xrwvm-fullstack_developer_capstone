@@ -14,7 +14,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments
+from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -88,13 +88,13 @@ def get_dealerships(request, state="All"):
 
 def get_dealer_details(request, dealer_id):
     if(dealer_id):
-        endpoint = "/fetchDealer/"+(dealer_id)
+        endpoint = "/fetchDealer/"+str(dealer_id)
         dealership = get_request(endpoint)
         return JsonResponse({"status":200,"dealer":dealership})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
-def get_dealer_reviews(request, dealer_id_n):
+def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
     if(dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
@@ -108,16 +108,20 @@ def get_dealer_reviews(request, dealer_id_n):
         return JsonResponse({"status":400,"message":"Bad Request"})
 
 def add_review(request):
-    if(request.user.is_anonymous == False):
-        data = json.loads(request.body.decode('utf-8'))
+    if (request.user.is_anonymous is False):
+        data = json.loads(request.body)
         try:
-            response = post_review(data)
-            return JsonResponse({"status":200})
-        except:
-            return JsonResponse({"status":401,"message":"Error in posting review"})
+            post_review(data)
+            return JsonResponse({"status": 200})
+        except Exception:
+            return JsonResponse({"status": 401,
+                                 "message": "Error in posting review"})
+        finally:
+            print("add_review request successful!")
     else:
-        return JsonResponse({"status":403,"message":"Unauthorized"})
-        
+        return JsonResponse({"status": 403,
+                             "message": "Unauthorized"})
+
 def get_cars(request):
     count = CarMake.objects.filter().count()
     print(count)
