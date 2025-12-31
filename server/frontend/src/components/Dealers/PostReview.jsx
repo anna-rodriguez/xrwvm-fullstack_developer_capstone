@@ -4,7 +4,6 @@ import "./Dealers.css";
 import "../assets/style.css";
 import Header from '../Header/Header';
 
-
 const PostReview = () => {
   const [dealer, setDealer] = useState({});
   const [review, setReview] = useState("");
@@ -21,6 +20,7 @@ const PostReview = () => {
   let review_url = root_url+`djangoapp/add_review/`;
   let carmodels_url = root_url+`djangoapp/get_cars/`;
 
+  
   const postreview = async ()=>{
     let name = sessionStorage.getItem("firstname")+" "+sessionStorage.getItem("lastname");
     //If the first and second name are stores as null, use the username
@@ -35,6 +35,9 @@ const PostReview = () => {
     let model_split = model.split(" ");
     let make_chosen = model_split[0];
     let model_chosen = model_split[1];
+
+    console.log(review_url);
+    console.log(root_url);
 
     let jsoninput = JSON.stringify({
       "name": name,
@@ -58,7 +61,8 @@ const PostReview = () => {
 
   const json = await res.json();
   if (json.status === 200) {
-      window.location.href = window.location.origin+"/dealer/"+id;
+      //window.location.href = window.location.origin+'/dealer/${id}';
+      window.location.href = dealer_url;
   }
 
   }
