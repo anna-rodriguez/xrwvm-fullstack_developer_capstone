@@ -21,10 +21,10 @@ const Dealerships = require('./dealership');
 
 try {
   Reviews.deleteMany({}).then(()=>{
-    Reviews.insertMany(reviews_data['reviews']);
+    Reviews.insertMany(reviews_data.reviews);
   });
   Dealerships.deleteMany({}).then(()=>{
-    Dealerships.insertMany(dealerships_data['dealerships']);
+    Dealerships.insertMany(dealerships_data.dealerships);
   });
   
 } catch (error) {
@@ -59,8 +59,9 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
+    //Write your code here
     try {
-      const dealers = await Dealerships.find({});
+      const dealers = await Dealerships.find();
       res.json(dealers);
     } catch (error) {
       res.status(500).send(error.message);
@@ -69,6 +70,7 @@ app.get('/fetchDealers', async (req, res) => {
   
   // Express route to fetch Dealers by a particular state
   app.get('/fetchDealers/:state', async (req, res) => {
+    //Write your code here
     try {
       const state = req.params.state;
       const dealers = await Dealerships.find({ state: state });
@@ -80,6 +82,7 @@ app.get('/fetchDealers', async (req, res) => {
   
   // Express route to fetch dealer by a particular id
   app.get('/fetchDealer/:id', async (req, res) => {
+    //Write your code here
     try {
       const id = req.params.id;
       const dealer = await Dealerships.findById(id);
@@ -96,19 +99,19 @@ app.get('/fetchDealers', async (req, res) => {
 //Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   data = JSON.parse(req.body);
-  const documents = await Reviews.find().sort( { id: -1 } )
-  let new_id = documents[0]['id']+1
+  const documents = await Reviews.find().sort( { id: -1 } );
+  let new_id = documents[0].id+1;
 
   const review = new Reviews({
 		"id": new_id,
-		"name": data['name'],
-		"dealership": data['dealership'],
-		"review": data['review'],
-		"purchase": data['purchase'],
-		"purchase_date": data['purchase_date'],
-		"car_make": data['car_make'],
-		"car_model": data['car_model'],
-		"car_year": data['car_year'],
+		"name": data.name,
+		"dealership": data.dealership,
+		"review": data.review,
+		"purchase": data.purchase,
+		"purchase_date": data.purchase_date,
+		"car_make": data.car_make,
+		"car_model": data.car_model,
+		"car_year": data.car_year,
 	});
 
   try {
