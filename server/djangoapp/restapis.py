@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 backend_url = os.getenv(
-    'backend_url', default="https://annarodrigue-3030.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/")
+    'backend_url', default="https://annarodrigue-3030.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/")
 sentiment_analyzer_url = os.getenv(
     'sentiment_analyzer_url',
-    default="https://sentianalyzer.24icvmamzip5.us-south.codeengine.appdomain.cloud/")
+    default="https://sentianalyzer.24jtli3hdz81.us-south.codeengine.appdomain.cloud/")
 
 def get_request(endpoint, **kwargs):
     params = ""
@@ -40,7 +40,7 @@ def analyze_review_sentiments(text):
         print("Network exception occurred")
 
 def post_review(data_dict):
-    request_url = backend_url+"/insert_review"
+    request_url = backend_url+"/insert_review/"
     try:
         response = requests.post(request_url,json=data_dict)
         print(response.json())

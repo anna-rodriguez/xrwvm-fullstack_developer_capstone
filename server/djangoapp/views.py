@@ -88,13 +88,13 @@ def get_dealerships(request, state="All"):
 
 def get_dealer_details(request, dealer_id):
     if(dealer_id):
-        endpoint = "/fetchDealer/"+str(dealer_id)
+        endpoint = "/fetchDealer/"+(dealer_id)
         dealership = get_request(endpoint)
         return JsonResponse({"status":200,"dealer":dealership})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
-def get_dealer_reviews(request, dealer_id):
+def get_dealer_reviews(request, dealer_id_n):
     # if dealer id has been provided
     if(dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
@@ -109,7 +109,7 @@ def get_dealer_reviews(request, dealer_id):
 
 def add_review(request):
     if(request.user.is_anonymous == False):
-        data = json.loads(request.body)
+        data = json.loads(request.body.decode('utf-8'))
         try:
             response = post_review(data)
             return JsonResponse({"status":200})
